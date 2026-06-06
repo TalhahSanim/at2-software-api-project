@@ -1,0 +1,21 @@
+{
+  "name": "at2-software-api-project",
+  "version": "1.0.0",
+  "description": "software-api",
+  "license": "ISC",
+  "author": "Talhah Sanim",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "express": "^5.2.1",
+    "joi": "^18.2.1",
+    "lodash": "^4.18.1",
+    "sequelize": "^6.37.8",
+    "sqlite3": "^6.0.1"
+  }
+}
