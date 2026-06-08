@@ -1,24 +1,21 @@
 const express = require("express");
 const app = express();
+process.loadEnvFile("../.env");
+const authSyncDB = require("./utils/authSyncDB");
 
-const sequelize = require("./utils/connection");
+//* Middleware
 
+app.use(express.json());
+//? Parse incoming Form data, available in req.body
+app.use(express.urlencoded({ extended: true }));
+
+const port = process.env.PORT || 4001;
 app.get("/", (req, res) => {
   res.send("Hello World");
 });
 
-async function connect() {
-  try {
-    await sequelize.authenticate();
-    console.log("Connection has been established");
-    await sequelize.sync();
-    console.log("Database Tables Created Sucessfully");
-  } catch (error) {
-    console.error("Database connection FAILED", error);
-  }
-}
-connect();
+authSyncDB();
 
-app.listen(4000, () => {
+app.listen(port, () => {
   console.log("Software Management Server is running on http://localhost:4000");
 });
