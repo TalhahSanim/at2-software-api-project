@@ -3,21 +3,15 @@ const sequelize = require("../utils/connection");
 
 const Role = sequelize.define("Role", {
   id: {
-    type: DataTypes.UUID,
-    defaultValue: DataTypes.UUIDV4,
-    unique: true,
+    type: DataTypes.BIGINT,
+    autoIncrement: true,
     primaryKey: true,
   },
   userId: {
-    type: DataTypes.UUID,
+    type: DataTypes.BIGINT,
     allowNull: true,
-    foreignKey: true,
-    references: {
-      model: "User",
-      key: "id",
-    },
   },
-  roleName: {
+  name: {
     type: DataTypes.STRING,
     allowNull: false,
     unique: false,

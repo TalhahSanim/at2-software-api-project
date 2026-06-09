@@ -3,25 +3,19 @@ const sequelize = require("../utils/connection");
 
 const softwareCategory = sequelize.define("softwareCategory", {
   id: {
-    type: DataTypes.UUID,
-    defaultValue: DataTypes.UUIDV4,
-    unique: true,
+    type: DataTypes.BIGINT,
+    autoIncrement: true,
     primaryKey: true,
   },
   softwareId: {
-    type: DataTypes.UUID,
+    type: DataTypes.BIGINT,
     allowNull: true,
-    foreignKey: true,
-    references: {
-      model: "Software",
-      key: "id",
-    },
   },
-  categoryName: {
+  name: {
     type: DataTypes.STRING,
     allowNull: false,
     unique: false,
   },
 });
 
-module.exports.softwareCategory = softwareCategory;
+module.exports.SoftwareCategory = softwareCategory;

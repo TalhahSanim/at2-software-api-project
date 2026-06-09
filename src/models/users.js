@@ -8,43 +8,58 @@ const User = sequelize.define(
     //
 
     id: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
-      unique: true,
+      type: DataTypes.BIGINT,
+      autoIncrement: true,
       primaryKey: true,
     },
     softwareId: {
-      type: DataTypes.UUID,
+      type: DataTypes.BIGINT,
       allowNull: true,
-      foreignKey: true,
-      references: {
-        model: "Software",
-        key: "id",
-      },
-      onDelete: "SET NULL",
-      onUpdate: "CASCADE",
     },
     username: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
+      validate: {
+        len: {
+          args: [3, 30],
+          msg: "username must be between 3 and 30 characters",
+        },
+
+        isAscii: true,
+      },
     },
-    fullName: {
+    fullname: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        isAscii: true,
+        min: 2,
+      },
     },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
+      validate: {
+        len: [5, 255],
+        isEmail: true,
+      },
     },
     password: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        isAscii: true,
+        min: 8,
+      },
     },
     isSysAdmin: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
+      validate: {
+        isIn: [[0, 1, true, false, "true", "false"]],
+      },
     },
   },
   {

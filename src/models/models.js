@@ -1,7 +1,7 @@
 const sequelize = require("../utils/connection");
 const { User } = require("./users");
 const { Software } = require("./software");
-const { softwareCategory } = require("./softwareCategory");
+const { SoftwareCategory } = require("./softwareCategory");
 const { Role } = require("./role");
 
 Software.hasMany(User, {
@@ -15,7 +15,11 @@ Software.belongsTo(User, {
   foreignKey: "userId",
 });
 
-softwareCategory.belongsTo(Software, {
+User.belongsTo(Software, {
+  foreignKey: "softwareId",
+});
+
+SoftwareCategory.belongsTo(Software, {
   foreignKey: "softwareId",
 });
 
@@ -38,6 +42,6 @@ module.exports = {
   sequelize,
   User,
   Software,
-  softwareCategory,
+  SoftwareCategory,
   Role,
 };

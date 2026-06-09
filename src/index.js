@@ -7,6 +7,9 @@ const authSyncDB = require("./utils/authSyncDB");
 
 //  * Require Routes
 const software = require("./routes/software");
+const users = require("./routes/users");
+const role = require("./routes/role");
+const softwareCategory = require("./routes/softwareCategory");
 
 //* Connect to DB
 authSyncDB();
@@ -19,6 +22,9 @@ app.use(express.urlencoded({ extended: true }));
 
 //* Use Routes
 app.use("/api/software", software);
+app.use("/api/users", users);
+app.use("/api/roles", role);
+app.use("/api/softwareCategory", softwareCategory);
 
 app.listen(port, () => {
   console.log(
