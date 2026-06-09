@@ -3,9 +3,8 @@ const sequelize = require("../utils/connection");
 
 const Software = sequelize.define("Software", {
   id: {
-    type: DataTypes.UUID,
-    defaultValue: DataTypes.UUIDV4,
-    unique: true,
+    type: DataTypes.BIGINT,
+    autoIncrement: true,
     primaryKey: true,
   },
 
