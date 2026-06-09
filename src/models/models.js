@@ -15,6 +15,21 @@ Software.belongsTo(User, {
   foreignKey: "userId",
 });
 
+Software.belongsTo(softwareCategory, {
+  foreignKey: "softwareCategoryId",
+});
+
+Role.hasMany(User, {
+  foreignKey: "roleId",
+  onDelete: "SET NULL",
+
+  onUpdate: "CASCADE",
+});
+
+User.belongsTo(Role, {
+  foreignKey: "roleId",
+});
+
 module.exports = {
   sequelize,
   User,
