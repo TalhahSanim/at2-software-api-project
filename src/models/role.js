@@ -1,17 +1,18 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../utils/connection");
 
-const Software = sequelize.define("Software", {
+const Role = sequelize.define("Role", {
   id: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
     unique: true,
     primaryKey: true,
   },
-  name: {
+  role_name: {
     type: DataTypes.STRING,
     allowNull: false,
-    unique: true,
+    unique: false,
   },
 });
-module.exports.Software = Software;
+
+module.exports.Role = Role;
