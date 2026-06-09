@@ -8,6 +8,15 @@ const softwareCategory = sequelize.define("softwareCategory", {
     unique: true,
     primaryKey: true,
   },
+  softwareId: {
+    type: DataTypes.UUID,
+    allowNull: true,
+    foreignKey: true,
+    references: {
+      model: "Software",
+      key: "id",
+    },
+  },
   categoryName: {
     type: DataTypes.STRING,
     allowNull: false,

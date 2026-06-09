@@ -8,6 +8,7 @@ const Software = sequelize.define("Software", {
     unique: true,
     primaryKey: true,
   },
+
   name: {
     type: DataTypes.STRING,
     allowNull: false,
