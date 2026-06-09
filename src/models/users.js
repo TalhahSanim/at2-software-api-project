@@ -1,5 +1,6 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../utils/connection");
+const { FULL } = require("sqlite3");
 const User = sequelize.define(
   "User",
   {
@@ -27,6 +28,10 @@ const User = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
+    },
+    fullName: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     email: {
       type: DataTypes.STRING,

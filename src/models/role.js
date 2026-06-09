@@ -8,7 +8,16 @@ const Role = sequelize.define("Role", {
     unique: true,
     primaryKey: true,
   },
-  role_name: {
+  userId: {
+    type: DataTypes.UUID,
+    allowNull: true,
+    foreignKey: true,
+    references: {
+      model: "User",
+      key: "id",
+    },
+  },
+  roleName: {
     type: DataTypes.STRING,
     allowNull: false,
     unique: false,
