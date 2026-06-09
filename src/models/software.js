@@ -13,5 +13,10 @@ const Software = sequelize.define("Software", {
     allowNull: false,
     unique: true,
   },
+  softwareDescription: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+    unique: true,
+  },
 });
 module.exports.Software = Software;

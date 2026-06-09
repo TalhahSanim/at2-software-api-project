@@ -1,6 +1,8 @@
 const sequelize = require("../utils/connection");
 const { User } = require("./users");
 const { Software } = require("./software");
+const { softwareCategory } = require("./softwareCategory");
+const { Role } = require("./role");
 
 Software.hasMany(User, {
   foreignKey: "softwareId",
@@ -17,4 +19,6 @@ module.exports = {
   sequelize,
   User,
   Software,
+  softwareCategory,
+  Role,
 };
