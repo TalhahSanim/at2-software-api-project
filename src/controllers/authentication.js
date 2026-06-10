@@ -3,12 +3,20 @@ const { User } = require("../models/users");
 
 async function login(req, res) {
   try {
-    const user = await User.findOne({
-      where: {
-        username: req.body?.username,
-        email: req.body?.email,
-      },
-    });
+    let user;
+    if (req.body.email && !req.body.username) {
+      user = await User.findOne({ where: { email: req.body.email } });
+    }
+    if (!req.body.email && req.body.username) {
+      user = await User.findOne({ where: { username: req.body?.username } });
+    }
+
+    if (req.body.email && req.body.username) {
+      user = await User.findOne({
+        where: { email: req.body.email, username: req.body.username },
+      });
+    }
+
     if (!user) {
       console.log("Invalid Email or Username for login");
       return res.status(400).send("Invalid Login Credentials");
