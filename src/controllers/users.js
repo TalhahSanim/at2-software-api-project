@@ -1,5 +1,6 @@
 const { User, Software, Role } = require("../models/models");
 const _ = require("lodash");
+const bcrypt = require("bcrypt");
 
 module.exports = {
   //* POST
@@ -7,12 +8,15 @@ module.exports = {
   async createUser(req, res) {
     console.log("Creating User", req.body);
     try {
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(req.body.password, salt);
+
       const [user, created] = await User.findOrCreate({
         where: {
           username: req.body.username,
           fullname: req.body.fullname,
           email: req.body.email,
-          password: req.body.password,
+          password: hashedPassword,
         },
       });
 
@@ -20,7 +24,11 @@ module.exports = {
         return res.status(409).send("This User already exists");
       }
       console.log("Success - User created:", user);
+      const token = user.generateAuthToken();
+      res.header("x-auth-token", token);
       let userData = _.pick(user, ["id", "username", "fullname", "email"]);
+      userData.token;
+
       res.json(userData);
     } catch (error) {
       internalError(error, res);

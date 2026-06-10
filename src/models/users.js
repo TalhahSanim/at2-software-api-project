@@ -1,11 +1,11 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../utils/connection");
-const { FULL } = require("sqlite3");
+const jwt = require("jsonwebtoken");
+
 const User = sequelize.define(
   "User",
   {
     // ? Attributes of the fields within the table
-    //
 
     id: {
       type: DataTypes.BIGINT,
@@ -67,4 +67,17 @@ const User = sequelize.define(
   },
 );
 // User.sync({ alter: true });
+
+User.prototype.generateAuthToken = function () {
+  return jwt.sign(
+    {
+      id: this.id,
+      username: this.username,
+      fullname: this.fullname,
+      email: this.email,
+      isSysAdmin: this.isSysAdmin,
+    },
+    process.env.API_PRIVATE_KEY,
+  );
+};
 module.exports.User = User;

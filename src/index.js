@@ -10,6 +10,7 @@ const software = require("./routes/software");
 const users = require("./routes/users");
 const role = require("./routes/role");
 const softwareCategory = require("./routes/softwareCategory");
+const authentication = require("./routes/authentication");
 
 //* Connect to DB
 authSyncDB();
@@ -25,6 +26,7 @@ app.use("/api/software", software);
 app.use("/api/users", users);
 app.use("/api/roles", role);
 app.use("/api/softwareCategory", softwareCategory);
+app.use("/api/login", authentication);
 
 app.listen(port, () => {
   console.log(
