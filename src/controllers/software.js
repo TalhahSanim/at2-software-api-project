@@ -1,4 +1,4 @@
-const { Software, softwareCategory } = require("../models/models");
+const { Software, softwareCategory, User } = require("../models/models");
 
 module.exports = {
   //* GET:
@@ -54,7 +54,6 @@ module.exports = {
   // ? POST: api/software
   async createSoftware(req, res) {
     try {
-      // const newSoftware = req.body
       const sameSoftware = await Software.findOne({
         where: {
           name: req.body.name,
@@ -69,9 +68,20 @@ module.exports = {
       const software = await Software.create({
         name: req.body.name,
         softwareDescription: req.body.softwareDescription,
+        userId: req.user?.id,
+        softwareId: req.software?.id,
       });
       console.log("Software created:", software);
       res.json(software);
+
+      await User.update(
+        {
+          softwareId: software.id,
+        },
+        {
+          where: { id: req.user.id },
+        },
+      );
     } catch (error) {
       internalError(error, res);
     }

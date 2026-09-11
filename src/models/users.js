@@ -15,6 +15,12 @@ const User = sequelize.define(
     softwareId: {
       type: DataTypes.BIGINT,
       allowNull: true,
+      references: {
+        model: "software",
+        key: "id",
+      },
+      onDelete: "SET NULL",
+      onUpdate: "CASCADE",
     },
     username: {
       type: DataTypes.STRING,
@@ -33,8 +39,9 @@ const User = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        isAscii: true,
-        min: 2,
+        notNull: {
+          msg: "Please provide  a full name",
+        },
       },
     },
     email: {

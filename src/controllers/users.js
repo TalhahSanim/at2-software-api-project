@@ -1,4 +1,4 @@
-const { User, Software, Role } = require("../models/models");
+const { User, Software } = require("../models/models");
 const _ = require("lodash");
 const bcrypt = require("bcrypt");
 
@@ -26,8 +26,8 @@ module.exports = {
       console.log("Success - User created:", user);
       const token = user.generateAuthToken();
       res.header("x-auth-token", token);
-      let userData = _.pick(user, ["id", "username", "fullname", "email"]);
-      userData.token;
+      const userData = _.pick(user, ["id", "username", "fullname", "email"]);
+      userData.token = token;
 
       res.json(userData);
     } catch (error) {
@@ -76,7 +76,7 @@ module.exports = {
         if (!software) {
           return res.status(404).send("No Software Found.");
         }
-        updateData.SoftwareId = software.id;
+        updateData.softwareId = software.id;
       }
       await user.update(updateData);
       const updatedData = await User.findByPk(req.params.id, {

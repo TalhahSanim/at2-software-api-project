@@ -1,14 +1,34 @@
 const express = require("express");
 const router = express.Router();
+const authentication = require("../middleware/authentication");
+const sysAdmin = require("../middleware/sysAdmin");
 
 const softwareCategoryController = require("../controllers/softwareCategory");
 
-router.get("/:id", softwareCategoryController.getSoftwareCategoryById);
+router.get("/", softwareCategoryController.getAllSoftwareCategory);
 
-router.post("/", softwareCategoryController.createSoftwareCategory);
+router.get(
+  "/:id",
+  [authentication, sysAdmin],
+  softwareCategoryController.getSoftwareCategoryById,
+);
 
-router.put("/:id", softwareCategoryController.updateSoftwareCategory);
+router.post(
+  "/",
+  authentication,
+  softwareCategoryController.createSoftwareCategory,
+);
 
-router.delete("/:id", softwareCategoryController.deleteSoftwareCategory);
+router.put(
+  "/:id",
+  [authentication, sysAdmin],
+  softwareCategoryController.updateSoftwareCategory,
+);
+
+router.delete(
+  "/:id",
+  [authentication, sysAdmin],
+  softwareCategoryController.deleteSoftwareCategory,
+);
 
 module.exports = router;

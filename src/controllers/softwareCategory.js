@@ -1,4 +1,4 @@
-const { SoftwareCategory } = require("../models/models");
+const { SoftwareCategory, Software, User } = require("../models/models");
 
 module.exports = {
   //* GET:
@@ -66,8 +66,10 @@ module.exports = {
         return res.status(409).send("This software category already exists.");
       }
 
+      const user = await User.findByPk(req.user.id);
       const publishedCategory = await SoftwareCategory.create({
         name: req.body.name,
+        softwareId: user.softwareId,
       });
       console.log("Software Category created:", publishedCategory);
       res.json(publishedCategory);

@@ -2,7 +2,6 @@ const sequelize = require("../utils/connection");
 const { User } = require("./users");
 const { Software } = require("./software");
 const { SoftwareCategory } = require("./softwareCategory");
-const { Role } = require("./role");
 
 Software.hasMany(User, {
   foreignKey: "softwareId",
@@ -13,35 +12,25 @@ Software.hasMany(User, {
 
 Software.belongsTo(User, {
   foreignKey: "userId",
+  onDelete: "SET NULL",
+  onUpdate: "CASCADE",
 });
 
 User.belongsTo(Software, {
   foreignKey: "softwareId",
+  onDelete: "SET NULL",
+  onUpdate: "CASCADE",
 });
 
 SoftwareCategory.belongsTo(Software, {
   foreignKey: "softwareId",
-});
-
-Role.hasMany(User, {
-  foreignKey: "roleId",
   onDelete: "SET NULL",
-
   onUpdate: "CASCADE",
 });
 
-User.belongsTo(Role, {
-  foreignKey: "roleId",
-});
-
-Role.belongsTo(User, {
-  foreignKey: "userId",
-  allowNull: true,
-});
 module.exports = {
   sequelize,
   User,
   Software,
   SoftwareCategory,
-  Role,
 };
